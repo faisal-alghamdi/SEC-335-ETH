@@ -1,0 +1,18 @@
+#!/bin/bash
+
+hostfile=$1
+portfile=$2
+userinput=$3
+
+echo "host,port,userinput"
+for host in $(cat $hostfile); do 
+# add if statment if user want check specific port - Faisal
+   if [[ -z "$3" ]];
+   then
+         for port in $(cat $portfile); do 
+           timeout .1 bash -c "echo >/dev/tcp/$host/$port" 2>/dev/null && echo "$host,$port"
+         done
+   else
+         timeout .1 bash -c "echo >/dev/tcp/$host/$userinput" 2>/dev/null && echo "$host,$use>
+   fi
+done
