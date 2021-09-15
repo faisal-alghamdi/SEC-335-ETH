@@ -1,1 +1,14 @@
+#!/bin/bash
 
+network=$1
+dns=$2
+
+echo "dns resolution for $network"
+  for i in {1..254};
+  do 
+     ip="$network.$i"
+     output=$(timeout .1 bash -c "nslookup $ip $dns")
+ if  [[ ${output:0:1} != "*" ]]; then
+echo $output 
+ fi 
+done
